@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+<generatorConfiguration>
+  <context id="context1">
+    <jdbcConnection connectionURL="???" driverClass="???" password="???" userId="???" />
+    <javaModelGenerator targetPackage="???" targetProject="???" />
+    <javaClientGenerator targetPackage="???" targetProject="???" type="XMLMAPPER" />
+    <table schema="???" tableName="???">
+      <columnOverride column="???" property="???" />
+    </table>
+  </context>
+</generatorConfiguration>
+-->
+<mapper namespace="com.kjy.mapper.MemberMapper">
+
+	
+	<insert id="insertSelectKey">
+		insert into m_table (userid,pw,auth) values(#{userid},#{pw},0)
+	</insert>
+	
+	<select id="loginCheck" resultType="String" >
+		select * from m_table where userid=#{userid} and pw=#{pw}
+	</select>
+	
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM m_table
+		WHERE userid = #{userid}
+	</select>
+	
+	<select id="getModel" resultType="String">
+		select auth from m_table where userid=#{id}
+	</select>
+	
+	<update id="authInsert">
+		update m_table set auth = #{auth} where userid = #{userid}	
+	</update>
+	
+	<delete id="delete">
+		delete from m_table where userid = #{userid}
+	</delete>
+	
+	<select id="getMember"  resultType="com.kjy.domain.MemberVO">
+		select * from m_table where userid=#{id}
+	</select>
+	
+	<update id="update">
+		update m_table set pw = #{pw} where userid = #{userid}
+	</update>
+	
+	
+</mapper>
